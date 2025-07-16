@@ -1,0 +1,5 @@
+{
+  "api_key": "ВАШ_VULTR_API_KEY",
+  "instance_id": "vultr-instance-id",
+  "ssh_public_key": "ssh-rsa AAA... user@host"
+}

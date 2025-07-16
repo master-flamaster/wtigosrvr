@@ -1,0 +1,16 @@
+{
+  "region": "ams",
+  "plan": "vc2-1c-1gb",
+  "os_id": 270,
+  "hostname": "ntp-monitor",
+  "label": "ntp-monitor",
+  "sshkey_id": "ssh-rsa AAA... user@host",
+  "user_data": "#cloud-config\npackage_update: true\npackages:\n  - golang\nruncmd:\n  - mkdir -p /opt/ntp-monitor\n  - cd /opt/ntp-monitor\n  - wget https://your.domain.com/releases/ntp-logger.tar.gz\n  - tar -xzvf ntp-logger.tar.gz\n  - cd ntp-logger/cmd/ntp-monitor\n  - go build -o ntp-monitor\n  - |\n    cat <<EOF > /etc/systemd/system/ntp-monitor.service\n    [Unit]\n    Description=NTP Monitor\n    [Service]\n    ExecStart=/opt/ntp-monitor/ntp-logger/cmd/ntp-monitor/ntp-monitor\n    Restart=always\n    [Install]\n    WantedBy=multi-user.target\n    EOF\n  - systemctl daemon-reexec\n  - systemctl enable ntp-monitor\n  - systemctl start ntp-monitor\n",
+  "backups": "disabled",
+  "enable_ipv6": true,
+  "tags": [
+    "ntp",
+    "monitor"
+  ],
+  "script_id": null
+}
