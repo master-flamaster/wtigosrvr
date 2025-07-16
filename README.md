@@ -8,6 +8,9 @@ entry is chained with an HMAC so tampering can be detected.
 
 ```
 go build ./cmd/server
+
+# cross compile for linux amd64
+GOOS=linux GOARCH=amd64 go build -o ntp-monitor ./cmd/server
 ```
 
 Run with a secret key file:
@@ -27,3 +30,14 @@ The application periodically queries the following servers:
 - 3.ru.pool.ntp.org
 
 Results are appended to `ntp.log` in JSON format.
+
+## Deploying to Vultr
+
+Use `vultr.go` together with `vultr_api_payload.json` and
+`vultr_config.json` to create a new instance via the Vultr API:
+
+```
+go run ./vultr.go -config vultr_config.json -payload vultr_api_payload.json
+```
+
+The configuration file must contain your API key.
